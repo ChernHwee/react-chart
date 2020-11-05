@@ -1,0 +1,48 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 400px;
+    min-height: 400px;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: move;
+}
+
+.box > div, .fa-times {
+    cursor: default;
+}
+
+.box > .fa-times {
+    margin: 0px;
+}
+
+.box > .fa-plus {
+    /* align-self: flex-end; */
+    margin: 2px;
+    cursor: pointer;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.gray {
+    border: dashed  #b3b3b3;
+    border-width: 5px;
+    color: #b3b3b3;
+}
+
+.end {
+    align-self: flex-end;
+}
+
+.graph {
+    width: 300px;
+    height: 300px;
+    border: solid  #000000;
+    border-width: 3px;
+    margin: 10px;
+}
