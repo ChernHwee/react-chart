@@ -1,9 +1,9 @@
 import React, { memo } from "react";
 import './Components.css';
 
-const Graph = () => {
+const Graph = ({something}) => {
     return (  
-        <div className="graph"> PlaceHolder </div>
+        <div className="graph"> {something} </div>
     );
 };
 export default memo(Graph);

@@ -4,9 +4,9 @@ import "font-awesome/css/font-awesome.css";
 import Select from "./Select";
 import Graph from "./Graph";
 
-const Box = ({type, options, addBox, index}) => {
+const Box = ({index, item, options, addBox, changeGraph, removeGraph}) => {
   let display = "";
-  switch (type) {
+  switch (item.type) {
     case "Add":
         display = (
             <div className="box center gray">
@@ -17,9 +17,9 @@ const Box = ({type, options, addBox, index}) => {
     default:
         display = (
             <div className="box">
-                <p className="fa fa-2x fa-times end"/>
-                <Select options={options} selected={type}/>
-                <Graph/>
+                <p className="fa fa-2x fa-times end" onClick={() => removeGraph(index)}/>
+                <Select options={options} selected={item.type} index={index} onChange={changeGraph}/>
+                <Graph something={item.type}/>
             </div>
         );
         break;
@@ -28,4 +28,4 @@ const Box = ({type, options, addBox, index}) => {
     <>{display}</>
   );
 };
-export default Box;
+export default memo(Box);
