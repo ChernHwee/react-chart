@@ -1,13 +1,15 @@
 import React, { memo } from "react";
 import './Components.css';
 
-const Select = () => {
+const Select = ({options, selected}) => {
+    const choices = options.map((item) => (
+        <option value={item} key={item}>
+          {item}
+        </option>
+      ));
     return (  
-        <select name="cars" id="cars">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+        <select name="graphSelection" id="graphSelection" defaultValue={selected}>
+            {choices}
         </select>
     );
 };
