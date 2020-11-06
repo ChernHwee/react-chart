@@ -9,15 +9,15 @@ const Box = ({index, item, options, addBox, changeGraph, removeGraph}) => {
   switch (item.type) {
     case "Add":
         display = (
-            <div className="box center gray">
-                <p className="fa fa-5x fa-plus" onClick={() => addBox(index)}/>
+            <div className="add box">
+                <p className="fa fa-5x fa-plus" onClick={() => addBox()}/>
             </div>
         );
         break;
     default:
         display = (
-            <div className="box">
-                <p className="fa fa-2x fa-times end" onClick={() => removeGraph(index)}/>
+            <div className="modify box">
+                <button onClick={() => removeGraph(index)} className="close">X</button>
                 <Select options={options} selected={item.type} index={index} onChange={changeGraph}/>
                 <Graph something={item.type}/>
             </div>

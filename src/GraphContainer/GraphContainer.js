@@ -1,80 +1,103 @@
 import React, { useEffect, useState } from "react";
+import { sortableContainer, sortableElement } from 'react-sortable-hoc';
+import arrayMove from 'array-move';
+
 import Box from "../Components/Box";
 import './GraphContainer.css';
-function GraphContainer() {
+
+const SortableBoxContainer = sortableContainer(({ children }) => <div className="container">{children}</div>);
+const SortableBox = sortableElement(({ selection, item, options, addBox, changeGraph, removeGraph }) => 
+{
+return <Box key={selection} index={selection} item={item} options={options} addBox={addBox} changeGraph={changeGraph} removeGraph={removeGraph}/>
+});
+
+
+const GraphContainer = () => {
   const [data, setData] = useState([]);
-  const graphOptions = ["Bar", "Pie", "Line"];
+  const graphOptions = ["Bar", "Pie", "Line", "Bubble"];
   useEffect(() => {
     const initalData = [{
-      type : "Bar",
-      data : "Something"
+      type: "Bar",
+      data: "Something"
     },
     {
-      type : "Pie",
-      data : "Something"
+      type: "Pie",
+      data: "Something"
     },
     {
-      type : "Line",
-      data : "Something"
+      type: "Line",
+      data: "Something"
     },
     {
-      type : "Bar",
-      data : "Something"
+      type: "Bubble",
+      data: "Something"
     },
     {
-      type : "Bar",
-      data : "Something"
+      type: "Line",
+      data: "Something"
     },
-    {
-      type : "Add",
-      data :""
-    }];
+  ];
 
     setData(initalData);
   }, []);
 
-  const addBox = (index) => {
-    const newData = data;
-    newData[index] = {
-        type : "Bar",
-        data : "Something"
-    };
-    setData(newData => [...newData, {type: "Add" , data:""}]);
+  const addBox = () => {
+    setData(data => [...data, {
+      type: "Bar",
+      data: "Something"
+    }]);
   }
 
-  const changeGraph = (e , index) => {
+  const changeGraph = (e, index) => {
     const newData = [...data];
     newData[index] = {
-      type : e.target.value,
-      data : "Something"
+      type: e.target.value,
+      data: "Something"
     };
     setData(newData);
   }
 
   const removeGraph = (index) => {
-    console.log(index);
+    console.log('Remove')
     const newData = [...data];
-    newData.splice(index,1);
+    newData.splice(index, 1);
     setData(newData);
   }
 
+  const onSortEnd = ({ oldIndex, newIndex}) => {
+    setData(arrayMove(data, oldIndex, newIndex));
+  } 
+
   return (
-    <div className="container">
+    <SortableBoxContainer axis="x" onSortEnd={onSortEnd} onSortStart={(_, event) => event.preventDefault()}>
       {
-      data.map((item, index) => (
-          <Box
+        data.map((item, index) => (
+          <SortableBox
             key={index}
             index={index}
+            selection={index}
             item={item}
             options={graphOptions}
             addBox={addBox}
             changeGraph={changeGraph}
             removeGraph={removeGraph}
-            test={data}
           />
         ))
       }
-    </div>
+      <Box
+        key={-1}
+        index={-1}
+        item={{
+          type: "Add",
+          data: ""
+        }}
+        options={graphOptions}
+        addBox={addBox}
+        changeGraph={() => { }}
+        removeGraph={() => { }}
+        test={data}
+      />
+    </SortableBoxContainer>
   );
 }
 
