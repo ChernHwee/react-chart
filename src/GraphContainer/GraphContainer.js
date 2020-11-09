@@ -5,7 +5,7 @@ import arrayMove from 'array-move';
 import Box from "../Components/Box";
 import './GraphContainer.css';
 
-const SortableBoxContainer = sortableContainer(({ children }) => <div className="container">{children}</div>);
+const SortableBoxContainer = sortableContainer(({ children }) => <div className="container" >{children}</div>);
 const SortableBox = sortableElement(({ selection, item, options, addBox, changeGraph, removeGraph }) => 
 {
 return <Box key={selection} index={selection} item={item} options={options} addBox={addBox} changeGraph={changeGraph} removeGraph={removeGraph}/>
@@ -69,7 +69,7 @@ const GraphContainer = () => {
   } 
 
   return (
-    <SortableBoxContainer axis="x" onSortEnd={onSortEnd} onSortStart={(_, event) => event.preventDefault()}>
+    <SortableBoxContainer axis="xy" lockOffset={30} distance={30} onSortEnd={onSortEnd} onSortStart={(_, event) => event.preventDefault()}>
       {
         data.map((item, index) => (
           <SortableBox
